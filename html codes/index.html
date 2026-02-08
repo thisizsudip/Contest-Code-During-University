@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contest Pulse | Direct Link</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #020617; color: #e2e8f0; font-family: sans-serif; }
+        .contest-card { background: #0f172a; border: 1px solid #1e293b; transition: 0.3s ease; }
+        .contest-card:hover { border-color: #3b82f6; transform: translateY(-3px); }
+    </style>
+</head>
+<body class="p-4 md:p-10">
+    <div class="max-w-5xl mx-auto">
+        <header class="flex justify-between items-center mb-8 border-b border-slate-800 pb-6">
+            <h1 class="text-3xl font-black text-blue-500 italic uppercase tracking-tighter">ContestPulse</h1>
+            <div id="status-pill" class="px-3 py-1 rounded-full bg-slate-800 text-[10px] font-bold text-slate-400 border border-slate-700 uppercase">
+                Connecting...
+            </div>
+        </header>
+
+        <div id="contest-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="col-span-full text-center py-20">
+                <div class="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <p class="text-slate-500 uppercase text-xs font-bold tracking-widest">Bypassing Browser Security...</p>
+            </div>
+        </div>
+
+        <div id="debug-log" class="mt-10 p-4 bg-black/40 rounded-lg text-[10px] font-mono text-slate-600 hidden"></div>
+    </div>
+
+    <script>
+        const USERNAME = 'WhatADrag';
+        const API_KEY = 'c337ee2f074d30a050ba4bfab4e8664c6af388b0';
+        
+        async function fetchContests() {
+            const list = document.getElementById('contest-list');
+            const status = document.getElementById('status-pill');
+            const debug = document.getElementById('debug-log');
+
+            // API Endpoint
+            const targetUrl = `https://clist.by/api/v4/contest/?username=${USERNAME}&api_key=${API_KEY}&upcoming=true&order_by=start&limit=30`;
+            
+            // Using a robust proxy to bypass Chrome's CORS block
+            const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+
+            try {
+                const response = await fetch(proxyUrl);
+                if (!response.ok) throw new Error("Proxy connection failed");
+                
+                const json = await response.json();
+                const data = JSON.parse(json.contents);
+
+                if (data.objects && data.objects.length > 0) {
+                    list.innerHTML = '';
+                    status.innerText = "● Online";
+                    status.classList.replace('text-slate-400', 'text-emerald-400');
+
+                    data.objects.forEach(c => {
+                        const date = new Date(c.start).toLocaleString([], { 
+                            month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+                        });
+                        
+                        list.innerHTML += `
+                            <div class="contest-card p-6 rounded-2xl flex flex-col justify-between h-full">
+                                <div>
+                                    <span class="text-[9px] text-blue-400 font-bold border border-blue-400/30 px-2 py-0.5 rounded uppercase tracking-widest">${c.resource.split('.')[0]}</span>
+                                    <h2 class="text-lg font-bold mt-4 mb-2 leading-tight uppercase">${c.event}</h2>
+                                    <p class="text-sm text-slate-400 italic">Starts: ${date}</p>
+                                </div>
+                                <a href="${c.href}" target="_blank" class="mt-8 block text-center bg-blue-600 hover:bg-blue-500 text-white py-3 rounded-xl font-bold transition-all transform active:scale-95 shadow-lg shadow-blue-900/20">
+                                    REGISTER
+                                </a>
+                            </div>`;
+                    });
+                } else {
+                    throw new Error("No contests returned. Check API Key validity.");
+                }
+            } catch (err) {
+                console.error(err);
+                status.innerText = "● Sync Error";
+                status.classList.replace('text-slate-400', 'text-red-500');
+                debug.classList.remove('hidden');
+                debug.innerText = "DEBUG INFO: " + err.message + " | URL used: " + targetUrl;
+                list.innerHTML = `<div class="col-span-full text-center p-10 bg-red-900/10 rounded-3xl border border-red-900/20">
+                    <p class="text-red-400 font-bold mb-2 uppercase">Local Connection Denied</p>
+                    <p class="text-slate-500 text-sm">Chrome is blocking the request. To fix this, you must upload this file to <b>GitHub Pages</b> or a web server.</p>
+                </div>`;
+            }
+        }
+
+        fetchContests();
+    </script>
+</body>
+</html>

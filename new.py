@@ -1,0 +1,6 @@
+#print("Enter a nubmer:")
+a = input("Enter first number:")
+#print("Enter a number:")
+b = input("Enter second number:")
+result = int(a) + int(b)
+print("The sum is = ",result)

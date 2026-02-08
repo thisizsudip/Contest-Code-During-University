@@ -1,0 +1,54 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "ReadFile",
+      "request": "launch",
+      "mainClass": "ReadFile",
+      "projectName": "Codes_8fbc43f4"
+    },
+    {
+      "type": "java",
+      "name": "WriteFile",
+      "request": "launch",
+      "mainClass": "WriteFile",
+      "projectName": "Codes_8fbc43f4"
+    },
+    {
+      "type": "java",
+      "name": "CreateFile",
+      "request": "launch",
+      "mainClass": "CreateFile",
+      "projectName": "Codes_8fbc43f4"
+    },
+    {
+      "type": "java",
+      "name": "Main",
+      "request": "launch",
+      "mainClass": "Main",
+      "projectName": "Codes_8fbc43f4"
+    },
+    {
+      "type": "java",
+      "name": "write",
+      "request": "launch",
+      "mainClass": "write",
+      "projectName": "Codes_8fbc43f4"
+    },
+    {
+      "type": "java",
+      "name": "App",
+      "request": "launch",
+      "mainClass": "App",
+      "projectName": "Codes_8fbc43f4"
+    },
+    {
+      "name": "Run Python File",
+      "type": "python",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal"
+    }
+  ]
+}
