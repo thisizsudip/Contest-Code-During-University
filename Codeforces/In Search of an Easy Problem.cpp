@@ -4,7 +4,7 @@ int main()
 {
     int n;
     cin >> n;
-    int arr[3];
+    int arr[n];
     for(int i = 0; i < n; i++){
         cin >> arr[i];
     }
@@ -12,6 +12,7 @@ int main()
     for(int i = 0; i < n; i++){
         if(arr[i] == 1){
             easy = false;
+            break;
         }
     }
     if(easy == true){
