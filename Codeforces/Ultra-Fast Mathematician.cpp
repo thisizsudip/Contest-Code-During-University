@@ -5,7 +5,7 @@ int main()
     string s1, s2;
     cin >> s1 >> s2;
     int l = s1.length();
-    cout << l << "\n";
+    //cout << l << "\n";
     string s = "";
     for(int i = 0; i < l; i++){
         if(s1[i] == s2[i]){
