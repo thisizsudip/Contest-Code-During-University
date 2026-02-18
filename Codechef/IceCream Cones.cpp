@@ -1,0 +1,19 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin >> t;
+    while(t--){
+        int x, y, n;
+        cin >> x >> y >> n;
+        int ice;
+        ice = y * n;
+        if(ice > x){
+            cout << 0 << endl;
+        }
+        else{
+            cout << abs(ice - x) << endl;
+        }
+    }
+}
