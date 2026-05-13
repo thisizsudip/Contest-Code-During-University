@@ -1,0 +1,67 @@
+EXP-1:
+
+CREATE TABLE Employee (
+    E_No INT PRIMARY KEY,
+    E_Name VARCHAR(20),
+    Adress VARCHAR(30)
+)
+
+CREATE TABLE Department (
+    Dept_No VARCHAR(15) PRIMARY KEY,
+    Name VARCHAR(20),
+    E_no INT
+)
+
+INSERT INTO employee VALUES
+    (1, "John", "London"),
+    (2, "Kely", "Cardiff"),
+    (3, "Smith", "Cardiff"),
+    (4, "Smith", "Nottingham");
+	
+
+INSERT INTO department VALUES
+     ("D1", "HR", 1),
+     ("D2", "IT", 2),
+     ("D3", "MRKT", 3);
+
+UPDATE employee 
+SET E_Name = "Sudip" 
+WHERE E_No = 4;
+
+SELECT Employee.E_Name
+FROM Employee
+JOIN Department
+ON Employee.E_No = Department.E_no;
+
+SELECT Employee.E_Name, Department.Name
+FROM Employee
+JOIN Department
+ON Employee.E_No = Department.E_no
+WHERE Department.Name IN ('HR', 'IT');
+
+SELECT Employee.E_Name
+FROM Employee
+LEFT JOIN Department
+ON Employee.E_No = Department.E_no
+WHERE Department.E_no IS NULL;
+
+
+
+EXP-2:
+
+CREATE TABLE employee (
+	EmpID INT,
+	EmpName VARCHAR(30),
+	ManagerID INT)
+
+INSERT INTO employee VALUES
+    (1, "Ram", NULL),
+    (2, "Varun", 1),
+    (3, "Ravi", 1),
+    (4, "Amit", 2);
+
+SELECT e.EmpName AS EmployeeName, 
+	m.EmpName AS ManagerName 
+	FROM employee e 
+	JOIN employee m 
+	ON e.ManagerID = m.EmpID;
