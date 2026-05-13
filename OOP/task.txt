@@ -60,8 +60,9 @@ INSERT INTO employee VALUES
     (3, "Ravi", 1),
     (4, "Amit", 2);
 
-SELECT e.EmpName AS EmployeeName, 
-	m.EmpName AS ManagerName 
-	FROM employee e 
-	JOIN employee m 
-	ON e.ManagerID = m.EmpID;
+SELECT 
+    E.EmpName  Employees,
+    M.EmpName  Manager
+FROM Employee E
+INNER JOIN Employee M
+ON E.ManagerID = M.EmpID;
